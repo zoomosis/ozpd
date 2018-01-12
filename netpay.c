@@ -20,10 +20,10 @@ main(int argc, char **argv)
 {
   struct taxent { float wage; float tax1; float rate; }
       taxscale[] = {
-      { 60000.0 , 15580.0  , 47.0 },
-      { 50000.0 , 11380.0  , 42.0 },
-      { 20000.0 ,  2380.0  , 30.0 },
-      {  6000.0 ,     0.0  , 17.0 },
+      { 95000.0 , 28200.0  , 47.0 },
+      { 63000.0 , 14760.0  , 42.0 },
+      { 21600.0 ,  2340.0  , 30.0 },
+      {  6000.0 ,     0.0  , 15.0 },
       {     0.0 ,     0.0  ,  0.0 },
       };
   float medirate = 0.015;
@@ -32,7 +32,7 @@ main(int argc, char **argv)
 
   if (argc < 2)
   {
-    printf("netpay - Australian tax rates of 2000-07-01\n");
+    printf("netpay - Australian tax rates of 2006-07-01\n");
     printf("assuming medicare to be paid on entire gross wage\n");
     printf("what is your gross yearly pay?\n");
     scanf("%f",&grosspay);
