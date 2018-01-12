@@ -1,23 +1,23 @@
 /**************************************************************
     lzhuf.c
-    written by Haruyasu Yoshizaki 1988.11.20
-    some minor changes 1989.04.06
-    comments translated by Haruhiko Okumura 1989.04.07
-    getbit and getbyte modified 1990.03.23 by Paul Edwards
+    written by Haruyasu Yoshizaki 1988-11-20
+    some minor changes 1989-04-06
+    comments translated by Haruhiko Okumura 1989-04-07
+    getbit and getbyte modified 1990-03-23 by Paul Edwards
       so that they would work on machines where integers are
       not necessarily 16 bits (although ANSI guarantees a
       minimum of 16).  This program has compiled and run with
       no errors under Turbo C 2.0, Power C, and SAS/C 4.5
       (running on an IBM mainframe under MVS/XA 2.2).  Could
-      people please use YYYY.MM.DD date format so that everyone
+      people please use YYYY-MM-DD date format so that everyone
       in the world can know what format the date is in?
-    external storage of filesize changed 1990.04.18 by Paul Edwards to
+    external storage of filesize changed 1990-04-18 by Paul Edwards to
       Intel's "little endian" rather than a machine-dependant style so
       that files produced on one machine with lzhuf can be decoded on
       any other.  "little endian" style was chosen since lzhuf
       originated on PC's, and therefore they should dictate the
       standard.
-    initialization of something predicting spaces changed 1990.04.22 by
+    initialization of something predicting spaces changed 1990-04-22 by
       Paul Edwards so that when the compressed file is taken somewhere
       else, it will decode properly, without changing ascii spaces to
       ebcdic spaces.  This was done by changing the ' ' (space literal)
