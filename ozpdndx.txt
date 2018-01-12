@@ -1,0 +1,65 @@
+  File          Author          Description
+  ------------  --------------  ---------------------------------------------
+  read.me                       Description of OZPD
+  ozpdndx.txt                   OZPD index - this file
+  arctype.c     Paul Markham    Display type of archive
+  calendar.c    Paul Edwards    Display a calendar
+  comctl.c      Paul Edwards    Demo of accessing COM ports under OS/2
+  crlffix.c     Paul Edwards    Fix <CR><LF> and <LF>
+  d6502.c       Paul Edwards    6502 disassembler
+  delzero.c     Paul Edwards    Delete zero-length files
+  dow.h         Paul Edwards    Calculate day-of-week
+  dow.c         Paul Edwards    Calculate day-of-week
+  dssort.c      Paul Edwards    Distribution sort + radix exchange sort
+  dtsplit.c     Multiple        Split a Fido/SEAdog date into components
+  error.c       Paul Edwards    Error handling strategy implementation
+  error.h       Paul Edwards    Header file for error.c
+  estdio.c      Paul Edwards    Error-safe routines to stdio functions
+  estdio.h      Paul Edwards    Header file for estdlib.c
+  estdlib.c     Paul Edwards    Error-safe routines to stdlib functions
+  estdlib.h     Paul Edwards    Header file for estdlib.c
+  exec.c        Paul Markham    Set the priority of current OS/2 task
+  exists.c      Paul Edwards    Test for file existence
+  exists.h      Paul Edwards    Header file for exists.c
+  gcd.c         Paul Edwards    Calculate greatest common divisor
+  genpmsg.c     Paul Edwards    Generate a Fidonet packet with message
+  getopts.c     Paul Edwards    Parse command line arguments
+  getopts.h     Paul Edwards    Header file for getopts.c
+  hexdump.c     Paul Edwards    Do a hex dump of a file
+  l2c.c         Nhan Tran       Count lines of code       
+  lzhuf.c       Yoshi           Compression used by lharc
+  m2x.c         Paul Edwards    Convert buffer to hex
+  m2x.h         Paul Edwards    Header file for m2x.c
+  md5.c         Colin Plumb     MD5 fingerprint routine
+  md5.h         Colin Plumb     Header file for md5.c
+  money.c       Paul Edwards    Home vs renting calculator
+  netpay.c      Paul Edwards    Calculate Australian income tax
+  patmat.c      Sreenath Chary  Wildcard matching routine
+  patmat.h      Sreenath Chary  Header file for patmat.c
+  procfcmd.c    Paul Edwards    Execute commands on wildcarded files
+  qacc.c        Paul Edwards    Routines to access a file quickly
+  qacc.h        Paul Edwards    Header file for qacc.c
+  qwk2txt.c     Paul Edwards    Convert QWK MESSAGES.DAT to text
+  reform.c      Sreenath Chary  Wildcard transformation
+  reform.h      Sreenath Chary  Header file for reform.c
+  repo.c        Paul Edwards    Repositionable data stream
+  repo.h        Paul Edwards    Header file for repo.c
+  repofile.c    Paul Edwards    File implemented as a REPO
+  repofile.h    Paul Edwards    Header file for repofile.h
+  seenby.c      Paul Edwards    Handle Fidonet SEENBY lines
+  seenby.h      Paul Edwards    Header file for seenby.c
+  simpami.c     Craig Delahoy   Simple AmigaDos GUI program
+  simppm.c      Paul Edwards    Simple OS/2 PM program
+  simpss.c      Paul Edwards    Simple MS-Windows screen saver
+  simpwin.c     Paul Edwards    Simple MS-Windows program
+  slidwin.c     Paul Edwards    Sliding window on a "file"
+  slidwin.h     Paul Edwards    Header file for slidwin.c
+  trav.c        Paul Edwards    Traverse a directory (heaps of OS's)
+  trav.h        Paul Edwards    Header file for trav.c
+  unused.h      Paul Edwards    Macro to suppress compiler warning
+  world.c       Paul Edwards    Hello World program
+  xychop.c      Xie Yi Zhong    Chop a chunk out of a file
+  xysort.c      Xie Yi Zhong    Sort from stdin to limit of memory
+  zap.c         Paul Edwards    Zap a file at a particular offset
+  zcalc.c       Sreenath Chary  A brilliant calculator
+  zpedump.c     Paul Edwards    Do a hex dump of a file
