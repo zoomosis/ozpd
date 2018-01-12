@@ -29,7 +29,7 @@ int main(void)
     HMQ hmq;
     QMSG qmsg;
     HWND hwndClient;
-    ULONG createFlags = FCF_SYSMENU | FCF_TITLEBAR
+    ULONG createFlags = FCF_SYSMENU | FCF_TITLEBAR | FCF_TASKLIST
                             | FCF_SIZEBORDER | FCF_SHELLPOSITION;
     
     hab = WinInitialize((ULONG)0);
