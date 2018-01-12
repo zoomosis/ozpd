@@ -3,17 +3,25 @@
   read.me                       Description of OZPD
   ozpdndx.txt                   OZPD index - this file
   arctype.c     Paul Markham    Display type of archive
+  assemble.c    Paul Edwards    Join split files into one
+  bin2und.c     Paul Edwards    Binary file to MVS undefined-format
   bounce.moo    Rowan Crowe     Bouncing ball demo
+  boutcnv.c     Paul Edwards    Binkley outbound conversion routines
+  boutcnv.h     Paul Edwards    Header file for boutcnv.c
   btree.c       David Galbraith Generic btree routines
   btree.h       David Galbraith Header file for btree.c  
+  bulkren.c     Paul Edwards    Rename files in bulk
   calendar.c    Paul Edwards    Display a calendar
+  cecho.c       Paul Edwards    Echo command line arguments
   chngstr.c     Paul Edwards    Change one string to another in a buffer
   chngstr.h     Paul Edwards    Header file for chngstr.c
   comctl.c      Paul Edwards    Demo of accessing COM ports under OS/2
   crlffix.c     Paul Edwards    Fix <CR><LF> and <LF>
   ctlparse.c    Andrew Clarke   Parse a configuration file
   ctlparse.h    Andrew Clarke   Header file for ctlparse.c
+  cut.c         Paul Edwards    Cut file into chunks
   d6502.c       Paul Edwards    6502 disassembler
+  dec2hex.c     Paul Edwards    Convert decimal to hex
   delzero.c     Paul Edwards    Delete zero-length files
   dlist.c       Andrew Clarke   Double-linked list routines
   dlist.h       Andrew Clarke   Header file for dlist.c
@@ -30,17 +38,41 @@
   estdlib.c     Paul Edwards    Error-safe routines to stdlib functions
   estdlib.h     Paul Edwards    Header file for estdlib.c
   exec.c        Paul Markham    Set the priority of current OS/2 task
+  exetype.c     Paul Edwards    Find out OS/2 executable type
   exists.c      Paul Edwards    Test for file existence
   exists.h      Paul Edwards    Header file for exists.c
+  fasc.c        Paul Edwards    Convert from ASCII to local character set
+  fatread.c     Frank Adam      Read/write boot sector
+  fh.c          Peter Fitzsimmons Increase file handles
+  fh2.c         Paul Edwards    Increase file handles
   filter.c      Andrew Clarke   Soften a hard-formatted text file
+  fixctlz.c     Paul Edwards    Delete ctrl-z's from a file
+  fnsplit.c     Frank Adam      Split filename into components (DOS)
+  fnsplit.h     Frank Adam      Header file for fnsplit.c           
   freqlog.c     Paul Edwards    Scour binkley.log for FREQs
+  fsf.c         Joshua Marshall Part of grep.c
+  fsf.h         Joshua Marshall Header file for fsf.c
+  gccalc.c      Paul Edwards    Great Circle calculations
+  gccalc.h      Paul Edwards    Header file for gccalc.c
   gcd.c         Paul Edwards    Calculate greatest common divisor
+  gdist.c       Paul Edwards    Caclulate GPS distances
   genpmsg.c     Paul Edwards    Generate a Fidonet packet with message
   getopts.c     Paul Edwards    Parse command line arguments
   getopts.h     Paul Edwards    Header file for getopts.c
+  goprot.asm    Multiple        Switch to protected mode on 386
+  gpsdist.c     Paul Edwards    Calculate GPS averages
+  grep.c        Paul Edwards    Search for strings in files
+  grepjm.c      Joshua Marshall Search for strings in multiple files
+  guppy.opl     Paul Edwards    Transfer waypoints from garmin to psion
+  hdtofil.c     Paul Edwards    Convert hex dump output to a file
+  hex2dec.c     Paul Edwards    Convert hexadecimal number to decimal
   hexdump.c     Paul Edwards    Do a hex dump of a file
+  insfuncs.c    Frank Adam      String insertions
+  insfuncs.h    Frank Adam      Header file for insfuncs.c
   isbn.c        Paul Markham    Validate an ISBN number
+  jsort.c       Joshua Marshall Sort program
   l2c.c         Nhan Tran       Count lines of code       
+  lmath.c       Roy McNeill     Long-division maths
   logdbr.c      Andrew Clarke   Status logging routines
   logdbr.h      Andrew Clarke   Status logging routines
   logfrodo.c    Andrew Clarke   Status logging routines
@@ -52,12 +84,19 @@
   lzhuf.c       Yoshi           Compression used by lharc
   m2x.c         Paul Edwards    Convert buffer to hex
   m2x.h         Paul Edwards    Header file for m2x.c
+  maxdtest.c    Paul Edwards    Test how many files can be DosOpened
+  maxtest.c     Paul Edwards    Test how many files can be opened
   md5.c         Colin Plumb     MD5 fingerprint routine
   md5.h         Colin Plumb     Header file for md5.c
+  memmgr.c      Paul Edwards    Memory management routines
+  memmgr.h      Paul Edwards    Header file for memmgr.c 
   money.c       Paul Edwards    Home vs renting calculator
+  mvsunzip.c    Paul Edwards    Simple unzipper (no compression) for MVS
   netpay.c      Paul Edwards    Calculate Australian income tax
   patmat.c      Sreenath Chary  Wildcard matching routine
   patmat.h      Sreenath Chary  Header file for patmat.c
+  pincode.c     Paul Edwards    Encode pin numbers
+  polyarc.c     Paul Edwards    Move fido .pkts into binkley outbound
   pqueue.c      David Galbraith Generic priority queue
   pqueue.h      David Galbraith Header file for pqueue.h
   procfcmd.c    Paul Edwards    Execute commands on wildcarded files
@@ -67,6 +106,11 @@
   queue.c       Paul Markham    A generic "queue"
   queue.h       Paul Markham    Header file for queue.c
   qwk2txt.c     Paul Edwards    Convert QWK MESSAGES.DAT to text
+  ranbyte.c     Paul Edwards    Generate file of random bytes
+  ransel.c      Paul Edwards    Create set of random numbers
+  ransel.h      Paul Edwards    Header file for ransel.c
+  rebooto.c     Peter Fitzsimmons Reboot OS/2
+  remtab.c      Robert Mashlan  Convert tabs to spaces
   reform.c      Sreenath Chary  Wildcard transformation
   reform.h      Sreenath Chary  Header file for reform.c
   repo.c        Paul Edwards    Repositionable data stream
@@ -75,25 +119,43 @@
   repofile.h    Paul Edwards    Header file for repofile.h
   seenby.c      Paul Edwards    Handle Fidonet SEENBY lines
   seenby.h      Paul Edwards    Header file for seenby.c
+  showctl.c     Paul Edwards    Show "control" characters in file
   simpami.c     Craig Delahoy   Simple AmigaDos GUI program
   simppm.c      Paul Edwards    Simple OS/2 PM program
+  simppm16.c    Paul Edwards    Simple OS/2 16-bit PM program
   simpss.c      Paul Edwards    Simple MS-Windows screen saver
   simpwin.c     Paul Edwards    Simple MS-Windows program
   slidwin.c     Paul Edwards    Sliding window on a "file"
   slidwin.h     Paul Edwards    Header file for slidwin.c
   sqhash.asm    Rowan Crowe     Low-level squish utility
+  squid.c       Andrew Clarke   Show low-level info on squish area
   stack.c       Paul Markham    A generic "stack"
   stack.h       Paul Markham    Header file for stack.c
   stack2.c      Andrew Clarke   A generic "stack"
   stack2.h      Andrew Clarke   Header file for stack2.c
+  stdsed.c      Paul Edwards    Seed random number generator with time
+  stdsed.h      Paul Edwards    Header file for stdsed.c
+  strinl.c      Paul Edwards    Delete newline from end of string
+  strinl.h      Paul Edwards    Header file for strinl.c
+  stritr.c      Paul Edwards    Delete spaces from end of string
+  stritr.h      Paul Edwards    Header file for stritr.c
   trav.c        Paul Edwards    Traverse a directory (heaps of OS's)
   trav.h        Paul Edwards    Header file for trav.c
+  trklplus.opl  Andreas Bormann Download tracks from garmin to Waypoint+ format
+  und2bin.c     Paul Edwards    MVS undefined-format to binary
+  unixio.c      Paul Edwards    Unix I/O in terms of standard C
+  unixio.h      Paul Edwards    Header file for unixio.c
+  unixtime.c    Andrew Clarke   Calculate # seconds since 1970
   unused.h      Paul Edwards    Macro to suppress compiler warning
+  waypcnv.c     Paul Edwards    Convert waypoints from gardown to waypoint+
+  wc.c          Paul Edwards    Count words in a file
   world.c       Paul Edwards    Hello World program
   xychop.c      Xie Yi Zhong    Chop a chunk out of a file
   xysort.c      Xie Yi Zhong    Sort from stdin to limit of memory
   zap.c         Paul Edwards    Zap a file at a particular offset
   zcalc.c       Sreenath Chary  A brilliant calculator
+  zfill.c       Paul Edwards    Generate file with x'ff'
   zloop.c       Paul Edwards    An infinite loop program
   zpedump.c     Paul Edwards    Do a hex dump of a file
+  zranbyt.c     Paul Edwards    Generate file with random bytes
   zshdup.c      Paul Edwards    Show duplicated lines in a file
