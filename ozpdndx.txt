@@ -4,10 +4,14 @@
   ozpdndx.txt                   OZPD index - this file
   arctype.c     Paul Markham    Display type of archive
   calendar.c    Paul Edwards    Display a calendar
+  chngstr.c     Paul Edwards    Change one string to another in a buffer
+  chngstr.h     Paul Edwards    Header file for chngstr.c
   comctl.c      Paul Edwards    Demo of accessing COM ports under OS/2
   crlffix.c     Paul Edwards    Fix <CR><LF> and <LF>
   d6502.c       Paul Edwards    6502 disassembler
   delzero.c     Paul Edwards    Delete zero-length files
+  dllist.c      Paul Markham    Generic double-linked list routines
+  dllist.h      Paul Markham    Header file for dlist.c
   dow.h         Paul Edwards    Calculate day-of-week
   dow.c         Paul Edwards    Calculate day-of-week
   dssort.c      Paul Edwards    Distribution sort + radix exchange sort
@@ -21,6 +25,7 @@
   exec.c        Paul Markham    Set the priority of current OS/2 task
   exists.c      Paul Edwards    Test for file existence
   exists.h      Paul Edwards    Header file for exists.c
+  freqlog.c     Paul Edwards    Scour binkley.log for FREQs
   gcd.c         Paul Edwards    Calculate greatest common divisor
   genpmsg.c     Paul Edwards    Generate a Fidonet packet with message
   getopts.c     Paul Edwards    Parse command line arguments
@@ -39,6 +44,8 @@
   procfcmd.c    Paul Edwards    Execute commands on wildcarded files
   qacc.c        Paul Edwards    Routines to access a file quickly
   qacc.h        Paul Edwards    Header file for qacc.c
+  queue.c       Paul Markham    A generic "queue"
+  queue.h       Paul Markham    Header file for queue.c
   qwk2txt.c     Paul Edwards    Convert QWK MESSAGES.DAT to text
   reform.c      Sreenath Chary  Wildcard transformation
   reform.h      Sreenath Chary  Header file for reform.c
@@ -54,6 +61,9 @@
   simpwin.c     Paul Edwards    Simple MS-Windows program
   slidwin.c     Paul Edwards    Sliding window on a "file"
   slidwin.h     Paul Edwards    Header file for slidwin.c
+  sqhash.asm    Rowan Crowe     Low-level squish utility
+  stack.c       Paul Markham    A generic "stack"
+  stack.h       Paul Markham    Header file for stack.c
   trav.c        Paul Edwards    Traverse a directory (heaps of OS's)
   trav.h        Paul Edwards    Header file for trav.c
   unused.h      Paul Edwards    Macro to suppress compiler warning
