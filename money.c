@@ -77,10 +77,10 @@ int main(int argc, char **argv)
   {
     for (j=1;j<=12;j=j+1)
     {
-      totsave=totsave+totsave*(intsave/100)/12+4*netweek;
+      totsave=totsave+totsave*(intsave/100)/12+365.25/7.0/12.0*netweek;
       if (totowe > 0) interest=totowe*(intborr/100)/12;
       else interest=totowe*(intsave/100)/12;
-      totowe=totowe+interest-(netweek+rent)*4;
+      totowe=totowe+interest-(netweek+rent)*365.25/7.0/12.0;
     }
     houseval=houseval*(1+houseinc/100);
     totalworth = houseval - totowe;
