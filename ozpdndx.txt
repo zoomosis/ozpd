@@ -1,6 +1,6 @@
   File          Author          Description
   ------------  --------------  ---------------------------------------------
-  read.me                       Description of OZPD
+  readme.txt                    Description of OZPD
   ozpdndx.txt                   OZPD index - this file
   arctype.c     Paul Markham    Display type of archive
   assemble.c    Paul Edwards    Join split files into one
@@ -15,6 +15,7 @@
   cecho.c       Paul Edwards    Echo command line arguments
   chngstr.c     Paul Edwards    Change one string to another in a buffer
   chngstr.h     Paul Edwards    Header file for chngstr.c
+  clnblank.c    Paul Edwards    Clean blanks from the end of lines
   comctl.c      Paul Edwards    Demo of accessing COM ports under OS/2
   crlffix.c     Paul Edwards    Fix <CR><LF> and <LF>
   ctlparse.c    Andrew Clarke   Parse a configuration file
@@ -31,6 +32,7 @@
   dow.c         Paul Edwards    Calculate day-of-week
   dssort.c      Paul Edwards    Distribution sort + radix exchange sort
   dtsplit.c     Multiple        Split a Fido/SEAdog date into components
+  ebc2loc.c     Paul Edwards    Convert EBCDIC file into local character set
   error.c       Paul Edwards    Error handling strategy implementation
   error.h       Paul Edwards    Header file for error.c
   estdio.c      Paul Edwards    Error-safe routines to stdio functions
@@ -43,6 +45,7 @@
   exists.h      Paul Edwards    Header file for exists.c
   fasc.c        Paul Edwards    Convert from ASCII to local character set
   fatread.c     Frank Adam      Read/write boot sector
+  febc.c        Paul Edwards    Convert from EBCDIC to local character set
   fh.c          Peter Fitzsimmons Increase file handles
   fh2.c         Paul Edwards    Increase file handles
   filter.c      Andrew Clarke   Soften a hard-formatted text file
@@ -81,6 +84,7 @@
   logopus.h     Andrew Clarke   Status logging routines
   logstat.c     Andrew Clarke   Status logging routines
   logstat.h     Andrew Clarke   Status logging routines  
+  longline.c    Paul Edwards    Find longest line in file
   lzhuf.c       Yoshi           Compression used by lharc
   m2x.c         Paul Edwards    Convert buffer to hex
   m2x.h         Paul Edwards    Header file for m2x.c
@@ -88,8 +92,6 @@
   maxtest.c     Paul Edwards    Test how many files can be opened
   md5.c         Colin Plumb     MD5 fingerprint routine
   md5.h         Colin Plumb     Header file for md5.c
-  memmgr.c      Paul Edwards    Memory management routines
-  memmgr.h      Paul Edwards    Header file for memmgr.c 
   money.c       Paul Edwards    Home vs renting calculator
   mvsunzip.c    Paul Edwards    Simple unzipper (no compression) for MVS
   netpay.c      Paul Edwards    Calculate Australian income tax
@@ -139,6 +141,7 @@
   strinl.h      Paul Edwards    Header file for strinl.c
   stritr.c      Paul Edwards    Delete spaces from end of string
   stritr.h      Paul Edwards    Header file for stritr.c
+  timesht.c     Paul Edwards    Timesheet conversions
   trav.c        Paul Edwards    Traverse a directory (heaps of OS's)
   trav.h        Paul Edwards    Header file for trav.c
   trklplus.opl  Andreas Bormann Download tracks from garmin to Waypoint+ format
