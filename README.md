@@ -13,4 +13,4 @@ OZPD is distributed as a file called OZPDxxyy, where xx is the
 two-digit year, and yy is the two-digit month.  It can be
 obtained from:
 
-http://gccmvs.sourceforge.net
+http://pdos.sourceforge.net
