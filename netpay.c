@@ -26,13 +26,13 @@ main(int argc, char **argv)
       {  5400.0 ,     0.0  , 20.0 },
       {     0.0 ,     0.0  ,  0.0 },
       };
-  float medirate = 0.014;
+  float medirate = 0.015;
   float grosspay, blocktax, remtax, fulltax, netpay;
   int x;
 
   if (argc < 2)
   {
-    printf("netpay - Australian tax rates of 1994-07-01\n");
+    printf("netpay - Australian tax rates of 1995-07-01\n");
     printf("assuming medicare to be paid on entire gross wage\n");
     printf("what is your gross yearly pay?\n");
     scanf("%f",&grosspay);
