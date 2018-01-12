@@ -132,6 +132,9 @@ int main(int argc, char **argv)
         }
         else getinp( c )     ;   /*  get the expression            */
 
+        temp = 0x01; /* mod PE 1997-08-01 to prevent overflows of
+                        static arrays */
+                        
         strcpy(c,sttoup(c))  ;   /*  convert input to upper case   */
 
         elimbl( c );             /*  remove embedded blanks        */
