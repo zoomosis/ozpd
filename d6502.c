@@ -22,7 +22,7 @@ static int ch;
     NEXTCH; \
     addr = addr | (ch << 8);
 static unsigned int addr;
-static unsigned int master = 0;
+static unsigned int master = -1;
 
 static void process(void);
 
@@ -41,7 +41,7 @@ int main(int argc, char **argv)
     }
     if (argc > 2)
     {
-        master = (unsigned int)strtol(*(argv+2), NULL, 0);
+        master = (unsigned int)strtol(*(argv+2), NULL, 0) - 1;
     }
     process();
     return (EXIT_SUCCESS);
@@ -123,38 +123,102 @@ static void process(void)
                 printf("ASL   $%.4X, X\n", addr);
                 break;
             case 0x90:
-                printf("BCC   $%.2X\n", NEXTCH);
+                NEXTCH;
+                if (ch > 0x80)
+                {
+                    printf("BCC   $%.2X\n", master + ch + 1 - 256);
+                }
+                else
+                {
+                    printf("BCC   $%.4X\n", master + ch + 1);
+                }
                 break;
             case 0xb0:
-                printf("BCS   $%.2X\n", NEXTCH);
+                NEXTCH;
+                if (ch > 0x80)
+                {
+                    printf("BCS   $%.2X\n", master + ch + 1 - 256);
+                }
+                else
+                {
+                    printf("BCS   $%.4X\n", master + ch + 1);
+                }
                 break;
             case 0xf0:
-                printf("BEQ   $%.2X\n", NEXTCH);
+                NEXTCH;
+                if (ch > 0x80)
+                {
+                    printf("BEQ   $%.2X\n", master + ch + 1 - 256);
+                }
+                else
+                {
+                    printf("BEQ   $%.4X\n", master + ch + 1);
+                }
                 break;
             case 0x24:
                 printf("BIT   $%.2X\n", NEXTCH);
                 break;
             case 0x2c:
                 GETADDR;
-                printf("BTI   $%.4X\n", addr);
+                printf("BIT   $%.4X\n", addr);
                 break;
             case 0x30:
-                printf("BMI   $%.2X\n", NEXTCH);
+                NEXTCH;
+                if (ch > 0x80)
+                {
+                    printf("BMI   $%.2X\n", master + ch + 1 - 256);
+                }
+                else
+                {
+                    printf("BMI   $%.4X\n", master + ch + 1);
+                }
                 break;
-            case 0xd0:
-                printf("BNE   $%.2X\n", NEXTCH);
+            case 0xd0:                
+                NEXTCH;
+                if (ch > 0x80)
+                {
+                    printf("BNE   $%.2X\n", master + ch + 1 - 256);
+                }
+                else
+                {
+                    printf("BNE   $%.4X\n", master + ch + 1);
+                }
                 break;
             case 0x10:
-                printf("BPL   $%.2X\n", NEXTCH);
+                NEXTCH;
+                if (ch > 0x80)
+                {
+                    printf("BPL   $%.2X\n", master + ch + 1 - 256);
+                }
+                else
+                {
+                    printf("BPL   $%.4X\n", master + ch + 1);
+                }
                 break;
             case 0x00:
                 printf("BRK\n");
                 break;
             case 0x50:
-                printf("BVC   $%.2X\n", NEXTCH);
+                NEXTCH;
+                if (ch > 0x80)
+                {
+                    printf("BVC   $%.2X\n", master + ch + 1 - 256);
+                }
+                else
+                {
+                    printf("BVC   $%.4X\n", master + ch + 1);
+                }
                 break;
             case 0x70:
-                printf("BVS   $%.2X\n", NEXTCH);
+                NEXTCH;
+                if (ch > 0x80)
+                {
+                    printf("BVS   $%.2X\n", master + ch + 1 - 256);
+                }
+                else
+                {
+                    printf("BVS   $%.4X\n", master + ch + 1);
+                }
                 break;
             case 0x18:
                 printf("CLC\n");
@@ -180,6 +244,7 @@ static void process(void)
             case 0xcd:
                 GETADDR;
                 printf("CMP   $%.4X\n", addr);
+                break;
             case 0xdd:
                 GETADDR;
                 printf("CMP   $%.4X, X\n", addr);
@@ -318,7 +383,7 @@ static void process(void)
                 printf("LDA   ($%.2X, X)\n", NEXTCH);
                 break;
             case 0xb1:
-                printf("LDA   ($%.2X, Y)\n", NEXTCH);
+                printf("LDA   ($%.2X), Y\n", NEXTCH);
                 break;
             case 0xa2:
                 printf("LDX   #$%.2X\n", NEXTCH);
