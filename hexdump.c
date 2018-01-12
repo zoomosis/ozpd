@@ -75,7 +75,7 @@ static void dodump(FILE * fp, long start, long count)
         if (x % 16 == 0)
         {
             memset(prtln, ' ', sizeof prtln);
-            sprintf(prtln, "%0.6X   ", start + x);
+            sprintf(prtln, "%0.6lX   ", start + x);
             pos1 = 8;
             pos2 = 45;
         }
