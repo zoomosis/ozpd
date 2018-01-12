@@ -13,34 +13,30 @@
  * MD5Context structure, pass it to MD5Init, call MD5Update as
  * needed on buffers full of bytes, and then call MD5Final, which
  * will fill a supplied 16-byte array with the digest.
+ *
+ * Paul Edwards modified the code in 1995 to get rid of some
+ * things which I assume the authors of CVS put in to make up
+ * for non-ISO-conforming C compilers.
+ * BTW, it would be nice if someone could update this code to both
+ * get rid of the warnings that some C compilers produce, and also
+ * to not require a 32-bit data type.  ISO guarantees that a long
+ * will be a minimum of 32-bits, so that is what should be used,
+ * with "& 0xffffffffU" as required.  If someone does update it,
+ * perhaps that person could let me know, Paul Edwards at 
+ * 3:711/934@fidonet.
+ *
  */
 
-#include "config.h"
-
-#if HAVE_STRING_H || STDC_HEADERS
-#include <string.h>	/* for memcpy() */
-#endif
-
-/* Add prototype support.  */
-#ifndef PROTO
-#if defined (USE_PROTOTYPES) ? USE_PROTOTYPES : defined (__STDC__)
-#define PROTO(ARGS) ARGS
-#else
-#define PROTO(ARGS) ()
-#endif
-#endif
+#include <string.h>	
 
 #include "md5.h"
 
-void byteReverse PROTO ((unsigned char *buf, unsigned longs));
+void byteReverse(unsigned char *buf, unsigned longs);
 
-#ifndef ASM_MD5
 /*
  * Note: this code is harmless on little-endian machines.
  */
-void byteReverse (buf, longs)
-     unsigned char *buf;
-     unsigned longs;
+void byteReverse (unsigned char *buf, unsigned longs)
 {
 	uint32 t;
 	do {
@@ -50,15 +46,12 @@ void byteReverse (buf, longs)
 		buf += 4;
 	} while (--longs);
 }
-#endif
 
 /*
  * Start MD5 accumulation.  Set bit count to 0 and buffer to mysterious
  * initialization constants.
  */
-void
-MD5Init(ctx)
-     struct MD5Context *ctx;
+void MD5Init(struct MD5Context *ctx)
 {
 	ctx->buf[0] = 0x67452301;
 	ctx->buf[1] = 0xefcdab89;
@@ -73,11 +66,9 @@ MD5Init(ctx)
  * Update context to reflect the concatenation of another buffer full
  * of bytes.
  */
-void
-MD5Update(ctx, buf, len)
-     struct MD5Context *ctx;
-     unsigned char const *buf;
-     unsigned len;
+void MD5Update(struct MD5Context *ctx,
+               unsigned char const *buf,
+               unsigned len)
 {
 	uint32 t;
 
@@ -126,10 +117,8 @@ MD5Update(ctx, buf, len)
  * Final wrapup - pad to 64-byte boundary with the bit pattern 
  * 1 0* (64-bit count of bits processed, MSB-first)
  */
-void
-MD5Final(digest, ctx)
-     unsigned char digest[16];
-     struct MD5Context *ctx;
+void MD5Final(unsigned char digest[16],
+              struct MD5Context *ctx)
 {
 	unsigned count;
 	unsigned char *p;
@@ -170,8 +159,6 @@ MD5Final(digest, ctx)
 	memset(ctx, 0, sizeof(ctx));	/* In case it's sensitive */
 }
 
-#ifndef ASM_MD5
-
 /* The four core functions - F1 is optimized somewhat */
 
 /* #define F1(x, y, z) (x & y | ~x & z) */
@@ -189,10 +176,7 @@ MD5Final(digest, ctx)
  * reflect the addition of 16 longwords of new data.  MD5Update blocks
  * the data and converts bytes into longwords for this routine.
  */
-void
-MD5Transform(buf, in)
-     uint32 buf[4];
-     uint32 const in[16];
+void MD5Transform(uint32 buf[4], uint32 const in[16])
 {
 	register uint32 a, b, c, d;
 
@@ -274,4 +258,3 @@ MD5Transform(buf, in)
 	buf[2] += c;
 	buf[3] += d;
 }
-#endif
