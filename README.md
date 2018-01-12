@@ -1,7 +1,7 @@
                           OZPD
 
 
-This archive is maintained by Paul Edwards, kerravon@w3.to
+This archive is maintained by Paul Edwards, fight.subjugation@gmail.com
 
 It contains a selection of public domain programs that have
 crossed my path.
@@ -13,4 +13,4 @@ OZPD is distributed as a file called OZPDxxyy, where xx is the
 two-digit year, and yy is the two-digit month.  It can be
 obtained from:
 
-http://www.kerravon.w3.to
+http://gccmvs.sourceforge.net
