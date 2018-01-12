@@ -9,12 +9,15 @@
 /*  waypcnv - convert waypoints and tracks from gardown format to    */
 /*  waypoint+ format and vice versa.                                 */
 /*                                                                   */
+/*  waypoint+ format must be WGS84 and ddd mm.mmm                    */
+/*                                                                   */
 /*  The program reads from stdin and writes to stdout.               */
 /*                                                                   */
 /*********************************************************************/
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "strinl.h"
 #include "dow.h"
@@ -74,8 +77,8 @@ static void wp2g_wp(char *buf)
     memset(buf2, ' ', sizeof buf2);
     buf2[76] = '\0';
     buf2[0] = 'W';
-    p = strchr(buf + 5, ',');
-    memcpy(buf2 + 3, buf + 5, p - (buf + 5));
+    p = strchr(buf + 6, ',');
+    memcpy(buf2 + 3, buf + 6, p - (buf + 6));
     p++;
     sscanf(p, "%lf", &x);
     p = strchr(p, ',') + 1;
@@ -208,17 +211,22 @@ static void datpn(char *from, char *to)
 
 static void wp2g_t(char *buf)
 {
-    char buf2[53];
+    char buf2[55];
     double x;
+    char *p;
     
     memset(buf2, ' ', sizeof buf2);
-    buf2[52] = '\0';
+    buf2[54] = '\0';
     buf2[0] = 'T';
-    sscanf(buf + 6, "%lf", &x);
+    p = buf + 6;
+    sscanf(p, "%lf", &x);
     latnp(x, buf2 + 3, 1);
-    sscanf(buf + 21, "%lf", &x);
+    p = strchr(p, ',') + 1;
+    sscanf(p, "%lf", &x);
     latnp(x, buf2 + 15, 0);
-    datnp(buf + 36, buf2 + 28);
+    p = strchr(p, ',') + 1;
+    datnp(p, buf2 + 28);
+    buf2[53] = buf[strlen(buf) - 1];
     strcpy(buf, buf2);
     return;
 }
@@ -234,6 +242,10 @@ static void g2wp_t(char *buf)
     latpn(buf + 15, buf2 + 17, 0);
     datpn(buf + 28, buf2 + 29);
     buf2[49] = '0';
+    if (strlen(buf) >= 54)
+    {
+        buf2[49] = buf[53];
+    }
     strcpy(buf, buf2);
     return;
 }
