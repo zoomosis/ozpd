@@ -76,7 +76,7 @@ static void process(void)
         }
         
         /* handle small cases */
-        x = fread(buf, 1, limit - cnt, inf);
+        x = fread(buf, 1, (size_t)(limit - cnt), inf);
         if (fwrite(buf, 1, x, outf) != x)
         {
             printf("write error=n");
