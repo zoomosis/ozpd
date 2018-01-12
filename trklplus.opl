@@ -1,0 +1,311 @@
+rem TrackLoad+ - version 1.0
+rem Reads tracklogs from Garmin GPS receiver into
+rem Psion Series 5 and converts to Waypoint+ format.
+
+rem This program is based on Guppy by Paul Edwards.
+rem Modifications by Andreas Bormann.
+rem The program is public domain.
+
+rem declare external
+external poweroff:
+external sendstr:(cmd%, parm$)
+external getstr:
+external ack:(cmd%)
+external dumpbuf:(parm$)
+external degcnv$:(n&)
+external setserial:
+external convtime$:(s&)
+
+proc main:
+  global buf$(255)
+  global cmd%
+  global trckh%
+  local len%, ret%, tt&, count%, count2%
+  local x%, y%, numrec%, lat&, lon&, nt%
+  local line$(255), fname$(30), fn$(30), off$(1)
+
+  fname$ = "c:\track.txt"
+
+  print "TrackLoad+"
+  print
+  print "-> Reads tracklogs from Garmin GPS receiver into"
+  print "   Psion Series 5 and converts to Waypoint+ format"
+  print
+  
+  retry::
+  print "Make sure the gps unit is connected and powered on",
+  print "and psion auto-power-off is large"
+  print
+  print "Enter tracklog file (";fname$;")",
+  input fn$
+  if fn$ <> "":fname$ = fn$ :endif
+  if exist(fname$)
+    print fname$, "exists. Overwrite? (Y/n)",
+    if upper$(get$) = "N":cls :goto retry :endif
+    print
+  endif
+  print
+  print "Poweroff gps unit after download? (Y/n)",
+  off$ = get$
+  if upper$(off$) <> "N":off$ = "Y":endif
+  print off$
+  print
+
+  lopen "tty:a"
+  setserial:
+
+  trckopen:(fname$)
+  readtracks:
+
+  getstr:
+  if (cmd% <> $06):print "ack was expected":endif
+
+  getstr:
+  if (cmd% <> $1b):print "numrecs was expected":endif
+  numrec% = asc(mid$(buf$,2,1))*256
+  numrec% = numrec% + asc(mid$(buf$,1,1))
+  print "number trackpoints", numrec%
+  ack:(cmd%)
+
+  count% = 0
+  count2% = 0
+  y% = 1
+  while y% < 9000
+    getstr:
+  rem  dumpbuf:(buf$)
+    if (cmd% = $22)
+        lat& = peekl(uadd(addr(buf$),1))
+        lon& = peekl(uadd(addr(buf$),5))
+        tt& = peekl(uadd(addr(buf$),9))
+        nt% = peekb(uadd(addr(buf$),13))
+
+        line$ = "TP,D,"
+        line$ = line$+degcnv$:(lat&)+","+degcnv$:(lon&)+","
+        line$ = line$+convtime$:(tt&)+","+num$(nt%,3)
+        trckwrite:(line$)
+        count% = count% + 1
+        count2% = count2% + 1
+        if (count% = 10)
+          print count2%, "records read"; chr$(13);
+          count% = 0
+        endif
+    endif
+    ack:(cmd%)
+    y% = y% + 1
+    if (cmd% = $0c):y%=9999:endif
+  endwh
+
+  trckclose:
+  print "transfer of", count2%, "trackpoints complete"
+
+  if off$ = "Y": poweroff: :endif
+  
+  print
+  print "Press a key to finish"
+  get
+
+endp
+
+
+proc poweroff:
+  sendstr:($0a, chr$($08)+chr$($00))
+endp
+
+
+proc sendstr:(cmd%, parm$)
+  local buf$(255), len%, y%, ch%, chk%
+
+  buf$ = chr$($10)+chr$(cmd%)
+  len% = len(parm$)
+  buf$ = buf$ + chr$(len%)
+  chk% = len%
+  chk% = chk% + cmd%
+  if (chk% > 255):chk% = chk% - 255:endif
+  y% = 1
+  while (y% <= len%)
+    ch% = asc(mid$(parm$,y%,1))
+    chk% = chk% + ch%
+    if (chk% > 255):chk% = chk% - 256:endif
+    buf$ = buf$ + chr$(ch%)
+    if (ch% = $10)
+        buf$ = buf$ + chr$($10)
+    endif
+    y% = y% + 1
+  endwh
+  chk% = 256 - chk%
+  buf$=buf$+chr$(chk%)+chr$($10)+chr$($03)
+  len%=len(buf$)
+  iow(-1,2,#uadd(addr(buf$),1),len%)
+endp
+
+
+proc getstr:
+  local xbuf$(255),ch$(1),y%,pbuf1&, len%, tlen%
+
+  xbuf$ = "A"
+  len% = 1
+  pbuf1&=uadd(addr(xbuf$),1)
+  iow(-1,1,#pbuf1&,len%)
+  if xbuf$ <> chr$($10):print "sequence error 1":endif
+  iow(-1,1,#pbuf1&,len%)
+  y%=asc(left$(xbuf$,1))
+  cmd% = y%
+  iow(-1,1,#pbuf1&,len%)
+  tlen%=asc(left$(xbuf$,1))
+  y% = 1
+  buf$ = ""
+  while y% <= tlen%
+    iow(-1,1,#pbuf1&,len%)
+    ch$ = left$(xbuf$,1)
+    buf$ = buf$ + ch$
+    if asc(ch$) = $10:iow(-1,1,#pbuf1&,len%):endif
+    y% = y% + 1
+  endwh
+  iow(-1,1,#pbuf1&,len%)
+  ch$ = left$(xbuf$,1)
+  if asc(ch$) = $10:iow(-1,1,#pbuf1&,len%):endif
+  iow(-1,1,#pbuf1&,len%)
+  if xbuf$ <> chr$($10):print "sequence error 2":endif
+  iow(-1,1,#pbuf1&,len%)
+  if xbuf$ <> chr$($03):print "sequence error 3":endif
+
+endp
+
+
+proc ack:(cmd%)
+  sendstr:($06, chr$(cmd%)+chr$($00))
+endp
+
+
+rem command to read tracks
+proc readtracks:
+  sendstr:($0a, chr$($06)+chr$($00))
+endp
+
+
+rem dump a string
+proc dumpbuf:(parm$)
+  local x%, len%
+
+  len% = len(parm$)
+  x% = 1
+  while x% <= len%
+    print hex$(asc(mid$(parm$,x%,1))), " ";
+    x% = x% + 1
+  endwh
+  print
+endp
+
+
+proc trckopen:(fname$)
+  local mode%
+
+  mode% = $02 rem + $20
+  ioopen(trckh%, fname$, mode%)
+endp
+
+proc trckwrite:(parm$)
+  local z$(255)
+ 
+  z$ = parm$ + chr$(13) + chr$(10)
+  iowrite(trckh%, uadd(addr(z$),1), len(z$))
+endp
+
+proc trckclose:
+  ioclose(trckh%)
+endp
+
+
+proc degcnv$:(n&)
+  return fix$(n&/11930464.7111111111,10,15)
+endp
+
+
+rem garmin needs 9600 N81 and no handshaking
+proc setserial:
+  local cmd%(6), dummy%
+  cmd%(1) = $0f0f
+  cmd%(2) = $0003
+  cmd%(3) = $1104
+  cmd%(4) = $13
+  cmd%(5) = 0
+  cmd%(6) = 0
+  iow(-1,7,cmd%(1),dummy%)
+endp
+
+
+proc convtime$:(s&)
+  local y%, year%, year4%, days%, dow%
+  local secs&, got29%, day%, month%, marr%(12)
+  local hour%, min%, sec&, tstr$(255)
+
+  marr%(1) = 31
+  marr%(2) = 59
+  marr%(3) = 90
+  marr%(4) = 120
+  marr%(5) = 151
+  marr%(6) = 181
+  marr%(7) = 212
+  marr%(8) = 243
+  marr%(9) = 273
+  marr%(10) = 304
+  marr%(11) = 334
+  marr%(12) = 365
+  secs& = s&
+  got29% = 0
+  rem convert to secs from 1989-01-01T00:00:00
+  secs& = secs& + &1*365*24*60*60
+  days% = secs& / (&1*24*60*60)
+  secs& = secs& - (days%*&1*24*60*60)
+  dow% = days% / 7
+  dow% = days% - (7 * dow%)
+  year4% = (days% - 1) / (4*365+1)
+  year% = 1989 + 4 * year4%
+  days% = days% - (year4%*(4*365+1))
+  y% = (days% - 1) / 365
+  year% = year% + y%
+  days% = days% - (y% * 365)
+  if (y% = 3)
+    if (days% >= 60)
+        if (days% = 60)
+            got29% = 1
+        endif
+        days% = days% - 1
+    endif
+  endif
+  month% = 1
+  while days% > marr%(month%)
+      month% = month% + 1
+  endwh
+  day% = days%
+  if (month% > 1)
+      day% = days% - marr%(month% - 1)
+  endif
+  if (got29% = 1)
+      days% = days% + 1
+  endif
+
+  tstr$ = num$(month%,2)
+  if month% < 10
+    tstr$ = "0" + tstr$
+  endif
+  if day% < 10
+    tstr$ = tstr$ + "/0"
+  else
+    tstr$ = tstr$ + "/"
+  endif
+  tstr$ = tstr$ + num$(day%,2) + "/" + num$(year%, 4) + ","
+
+  sec& = secs&
+  min% = sec& / 60
+  sec& = sec& - min% * &1 * 60
+  hour% = min% / 60
+  min% = min% - hour% * 60
+  if hour% < 10:tstr$=tstr$+"0":endif
+  tstr$ = tstr$ + num$(hour%,2) + ":"
+  if min% < 10:tstr$=tstr$+"0":endif
+  tstr$ = tstr$ + num$(min%,2) + ":"
+  if sec& < 10:tstr$=tstr$+"0":endif
+  tstr$ = tstr$ + num$(sec&,2)
+  return tstr$
+endp
