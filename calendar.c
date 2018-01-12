@@ -5,7 +5,8 @@
 /*********************************************************************/
 /*********************************************************************/
 /*                                                                   */
-/*  Calendar - produce a calendar for any given year.                */
+/*  Calendar - produce a calendar for any given year in the          */
+/*  proleptic Gregorian calendar.                                    */
 /*                                                                   */
 /*  This program takes as a command line parameter a single number   */
 /*  which should be a 4 digit year.  It then prints out a calendar   */
