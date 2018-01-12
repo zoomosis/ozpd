@@ -1,2 +1,2 @@
 /* released to the public domain */
-int patmat(char *raw, char *pat);
+int patmat(const char *raw, const char *pat);
