@@ -21,7 +21,7 @@
  * get rid of the warnings that some C compilers produce, and also
  * to not require a 32-bit data type.  ISO guarantees that a long
  * will be a minimum of 32-bits, so that is what should be used,
- * with "& 0xffffffffU" as required.  If someone does update it,
+ * with "& 0xffffffffUL" as required.  If someone does update it,
  * perhaps that person could let me know, Paul Edwards at 
  * 3:711/934@fidonet.
  *
