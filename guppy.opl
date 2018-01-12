@@ -26,7 +26,7 @@ global buf$(255)
 global cmd%
 global wayph%, trckh%
 local len%, ret%, tt&, count%, count2%
-local x%, y%, numrec%, lat, llat&, lon, llon&
+local x%, y%, numrec%, lat, llat&, lon, llon&, nt%
 local latd$(1), lond$(1)
 local line$(255)
 
@@ -101,11 +101,12 @@ rem  dumpbuf:(buf$)
       llon& = peekl(uadd(addr(buf$),5))
       lond$ = "E"
       tt& = peekl(uadd(addr(buf$),9))
+      nt%= peekb(uadd(addr(buf$),13))
 
       line$ = "T  "
       line$ = line$+degcnv$:(llat&, "N")+" "
       line$ = line$+degcnv$:(llon&, "E")+" "
-      line$ = line$+convtime$:(tt&)+" "
+      line$ = line$+convtime$:(tt&)+" "+num$(nt%,3)
       trckwrite:(line$)
       count% = count% + 1
       count2% = count2% + 1
