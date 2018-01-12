@@ -134,6 +134,7 @@
   simpwin.c     Paul Edwards    Simple MS-Windows program
   slidwin.c     Paul Edwards    Sliding window on a "file"
   slidwin.h     Paul Edwards    Header file for slidwin.c
+  socket.c      Jason Winter    TCP/IP interface for MVS 3.8j
   sqhash.asm    Rowan Crowe     Low-level squish utility
   squid.c       Andrew Clarke   Show low-level info on squish area
   stack.c       Paul Markham    A generic "stack"
