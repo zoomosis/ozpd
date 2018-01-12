@@ -46,6 +46,7 @@
   fasc.c        Paul Edwards    Convert from ASCII to local character set
   fatread.c     Frank Adam      Read/write boot sector
   febc.c        Paul Edwards    Convert from EBCDIC to local character set
+  febc.h        Paul Edwards    Header file for febc.c
   fh.c          Peter Fitzsimmons Increase file handles
   fh2.c         Paul Edwards    Increase file handles
   filter.c      Andrew Clarke   Soften a hard-formatted text file
@@ -76,6 +77,7 @@
   jsort.c       Joshua Marshall Sort program
   l2c.c         Nhan Tran       Count lines of code       
   lmath.c       Roy McNeill     Long-division maths
+  loc2ebc.c     Paul Edwards    Convert local character set file to EBCDIC
   logdbr.c      Andrew Clarke   Status logging routines
   logdbr.h      Andrew Clarke   Status logging routines
   logfrodo.c    Andrew Clarke   Status logging routines
@@ -88,12 +90,15 @@
   lzhuf.c       Yoshi           Compression used by lharc
   m2x.c         Paul Edwards    Convert buffer to hex
   m2x.h         Paul Edwards    Header file for m2x.c
+  makeasc.c     Paul Edwards    Make all characters printable
+  maptime.c     Paul Edwards    Map time from one timezone to another
   maxdtest.c    Paul Edwards    Test how many files can be DosOpened
   maxtest.c     Paul Edwards    Test how many files can be opened
   md5.c         Colin Plumb     MD5 fingerprint routine
   md5.h         Colin Plumb     Header file for md5.c
   money.c       Paul Edwards    Home vs renting calculator
   mvsunzip.c    Paul Edwards    Simple unzipper (no compression) for MVS
+  mvsdupx.c     Paul Edwards    Find duplicate MVS externals
   netpay.c      Paul Edwards    Calculate Australian income tax
   patmat.c      Sreenath Chary  Wildcard matching routine
   patmat.h      Sreenath Chary  Header file for patmat.c
@@ -141,6 +146,8 @@
   strinl.h      Paul Edwards    Header file for strinl.c
   stritr.c      Paul Edwards    Delete spaces from end of string
   stritr.h      Paul Edwards    Header file for stritr.c
+  tebc.c        Paul Edwards    Convert local character set to EBCDIC
+  tebc.h        Paul Edwards    Header file for tebc.c
   timesht.c     Paul Edwards    Timesheet conversions
   trav.c        Paul Edwards    Traverse a directory (heaps of OS's)
   trav.h        Paul Edwards    Header file for trav.c
