@@ -13,31 +13,31 @@
 /*  shareware program which performed a similar function but didn't  */
 /*  come with source!                                                */
 /*                                                                   */
-/*  This program is dedicated to the public domain.                  */
+/*  This program is released to the public domain.                   */
 /*                                                                   */
-/*  Written 1990.8.28.                                               */
+/*  Written 1990-08-28.                                              */
 /*                                                                   */
-/*  Modified 1991.01.29 to go from Monday to Sunday instead of       */
+/*  Modified 1991-01-29 to go from Monday to Sunday instead of       */
 /*  Sunday to Saturday, in accordance to ISO's recommendations.      */
 /*                                                                   */
-/*  Modified 1992.11.18 to make use of a different day-of-week       */
+/*  Modified 1992-11-18 to make use of a different day-of-week       */
 /*  routine which didn't suffer from the limitations of the last     */
 /*  (the last one required the year to be from 1901-2099).  The new  */
 /*  one's limitations are from 400 BC to 32367 AD as far as I can    */
 /*  tell.                                                            */
 /*                                                                   */
-/*  Modified 1993.1.28 to make use of a new day-of-week macro        */
+/*  Modified 1993-01-28 to make use of a new day-of-week macro       */
 /*  because the last one was bad as well.  The new one has a limit   */
-/*  of 1.1.1 to 14699.12.31                                          */
+/*  of 0001-01-01 to 14699-12-31                                     */
 /*                                                                   */
-/*  Modified 1993.1.29 to fix up the new day-of-week macro           */
+/*  Modified 1993-01-29 to fix up the new day-of-week macro          */
 /*  I intend replacing the macro again sometime                      */
 /*                                                                   */
-/*  Modified 1993.1.31 to use my new day-of-week macro which has     */
+/*  Modified 1993-01-31 to use my new day-of-week macro which has    */
 /*  undergone extensive stress-testing and been shown to be valid    */
-/*  over the range 1.1.1 to 32767.1.1.  It will produce unknown      */
-/*  results for dates outside this range, although it should still   */
-/*  return values from 0..6 so function correctly.                   */
+/*  over the range 0001-01-01 to 32767-01-01.  It will produce       */
+/*  unknown results for dates outside this range, although it should */
+/*  still return values from 0..6 so function correctly.             */
 /*                                                                   */
 /*********************************************************************/
 
