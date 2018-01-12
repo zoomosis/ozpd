@@ -32,7 +32,7 @@ OZPD may be FREQ'd from my BBS.
 
 Ten Minute Limit
 Fidonet 3:711/934 (Sydney, Australia)
-Phone 61-2-436-1785 
+Phone 61 2 436 1785 
 
 It is also hatched into the PDOMAIN TIC echo, but at time of writing,
 that echo only goes to various places within Australia.
