@@ -2,6 +2,7 @@
 /*                                                                   */
 /*  This Program Written By Paul Edwards.                            */
 /*  Released to the public domain.                                   */
+/*  Amiga mods by Michael Stapleton                                  */
 /*                                                                   */
 /*********************************************************************/
 /*********************************************************************/
@@ -53,12 +54,6 @@
 #include <string.h>
 #include <ctype.h>
 
-/* suppress warning about unused parameter */
-
-#ifndef unused
-#define unused(x) ((void)(x))
-#endif
-
 #ifdef MVS
   #include "brkpds.h"
   #include "mkpdsn.h"
@@ -72,7 +67,7 @@
   #include <dir.h>
 #else
   #include <direct.h>
-#endif  
+#endif
 #endif
 #ifdef UNIX
   #include <ftw.h>
@@ -92,11 +87,19 @@
 #endif
 #ifdef AMIGA
   #include <dos.h>
+  #include <proto/dos.h>
+  #include "patmat.h"
 #endif
 #ifdef OS2
 #include <os2.h>
 #endif
 #ifdef VM
+#endif
+
+/* suppress warning about unused parameter */
+
+#ifndef unused
+#define unused(x) ((void)(x))
 #endif
 
 int trav(char *filename, void *tcb,
@@ -154,7 +157,8 @@ int trav(char *filename, void *tcb,
   char buf[200];
   int allok = 1;
 
-  system("listfile (exec");
+  sprintf(buf, "listfile %s (exec", filename);
+  system(buf);
   fp = fopen("cms exec","r");
   if (fp == NULL) return (0);
   while ((fgets(buf,sizeof buf,fp) != NULL) && allok)
@@ -170,19 +174,24 @@ int trav(char *filename, void *tcb,
   struct ffblk ffblk;
 #else
   struct find_t ft;
-#endif  
+#endif
   int x,done;
   int lower=0;
 
   unused(tcb);
   for (x=0;*(filename+x)!='\0';x++)
       if (islower(*(filename+x))) lower=1;
-#ifdef __TURBOC__      
+#ifdef __TURBOC__
   done = findfirst(filename,&ffblk,0);
   while (!done)
   {
     if (lower) for (x=0;*(ffblk.ff_name+x)!='\0';x++)
         *(ffblk.ff_name+x) = (char)tolower(*(ffblk.ff_name+x));
+    if ((strchr(filename, '.') != NULL)
+        && (strchr(ffblk.ff_name, '.') == NULL))
+    {
+        strcat(ffblk.ff_name, ".");
+    }
     if (!ufunc(ffblk.ff_name,cb)) return (0);
     done = findnext(&ffblk);
   }
@@ -195,13 +204,13 @@ int trav(char *filename, void *tcb,
     if (!ufunc(ft.name,cb)) return (0);
     done = _dos_findnext(&ft);
   }
-#endif  
+#endif
   return (1);
 #elif defined(OS216)
   HDIR hdir;
   struct _FILEFINDBUF ffb;
-  USHORT cnt;  
-  
+  USHORT cnt;
+
   hdir = -1;
   cnt = 1;
   done = DosFindFirst(filename, &hdir, 0, &ffb, sizeof ffb, NULL, &cnt, 0);
@@ -229,6 +238,7 @@ int trav(char *filename, void *tcb,
 
   unused(tcb);
   temp = strrchr(filename,'\\');
+  if (temp == NULL) temp = strrchr(filename, '/');
   if (temp == NULL) temp = strrchr(filename,':');
   if (temp == NULL) strcpy(prefix,"");
   else
@@ -257,7 +267,7 @@ int trav(char *filename, void *tcb,
 #elif defined(UNIX)
   int utrav(char *fn, struct stat *mystat, int myint);
   char *pos;
-  
+
   gcb = cb;
   gfunc = ufunc;
   gfile = filename;
@@ -302,21 +312,55 @@ int trav(char *filename, void *tcb,
   LIB$FIND_FILE_END(&context);
   return (1);
 #elif defined(AMIGA)
-  extern int __msflag;
-  struct FileInfoBlock info;
-  int error;
-  int oldmsf;
+    struct FileInfoBlock __aligned fib;
+    char newfile[FILENAME_MAX];
+    char prefix[FILENAME_MAX];
+    char *temp;
+    BPTR fLock;
+    LONG ioerr;
 
-  oldmsf = __msflag;
-  __msflag = 1;
-  error = dfind(&info,filename,0);
-  while (error == 0)
-  {
-    if (!ufunc(info.fib_FileName,cb)) return (0);
-    error = dnext(&info);
-  }
-  __msflag = oldmsf;
-  return (1);
+    strlwr(filename);   /* To make comparison case-insensitive */
+    temp = strrchr(filename, '/');
+    if (temp == NULL)
+        temp = strrchr(filename, '\\');
+    if (temp == NULL)
+        temp = strrchr(filename, ':');
+
+    if (temp == NULL)
+        strcpy(prefix, "");
+    else
+    {
+        memcpy(prefix, filename, temp - filename + 1);
+        *(prefix + (temp - filename + 1)) = '\0';
+    }
+
+    if (fLock = Lock(prefix, SHARED_LOCK))
+    {
+        if (Examine(fLock, &fib))
+        {
+            if (fib.fib_DirEntryType > 0)
+            {
+                while (ExNext(fLock, &fib))
+                {
+                    if (fib.fib_DirEntryType < 0)
+                    {
+                        strcpy(newfile, prefix);
+                        strcat(newfile, fib.fib_FileName);
+                        strlwr(newfile);    /* To make comparison case-insensitive */
+                        if (patmat(newfile, filename))
+                        {
+                            /* printf("%s\n", newfile); */
+                            if (!ufunc(newfile, cb)) return (0);
+                        }
+                    }
+                }
+                if ((ioerr = IoErr()) != ERROR_NO_MORE_ENTRIES)
+                    printf("DOS error %d\n", ioerr);
+            }
+        }
+        UnLock(fLock);
+    }
+    return (1);
 #else
   ufunc(filename,cb);
   return (1);
