@@ -20,7 +20,9 @@ void stackInit(STACK * p_stack)
 
 void stackTerm(STACK * p_stack)
 {
-    unused(p_stack);
+    while (!stackIsEmpty(p_stack)) {
+        stackPopItem(p_stack);
+    }
 }
 
 int stackPushItem(STACK * p_stack, void *p_item)
