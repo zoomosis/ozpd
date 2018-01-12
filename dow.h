@@ -10,12 +10,12 @@
    years, because the results are meaningless anyway.  It is
    mainly to stop people playing silly buggers and causing
    the macro to crash on negative years. */
-/* it returns the day of the week, 0..6 for Monday..Sunday,
-   according to ISO's recommendation */
+/* it returns the day of the week, 0..6 for Sunday..Saturday,
+   to be compatible with the C standard library */
 
 #define dow(y,m,d) \
   ((((((m)+9)%12+1)<<4)%27 + (d) + \
   ((y)%400+400) + ((y)%400+400)/4 - ((y)%400+400)/100 + \
   (((m)<=2) ? ( \
   (((((y)%4)==0) && (((y)%100)!=0)) || (((y)%400)==0)) \
-  ? 5 : 6) : 0)) % 7)
+  ? 6 : 0) : 1)) % 7)
