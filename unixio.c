@@ -13,19 +13,23 @@
 
 #include <stdio.h>
 
+#ifdef fileno
+#undef fileno
+#endif
+
 #include "unixio.h"
 
 static FILE *files[FOPEN_MAX];
-char *environ[] = { NULL };
+/*char *environ[] = { NULL };*/
 
 int open(const char *fnm, int mode, ...)
 {
     int x;
     char *modestr;
 
-    for (x = 0; x < FOPEN_MAX; x++)
+    for (x = 3; x < FOPEN_MAX; x++)
     {
-        if (filesÝx¨ == NULL)
+        if (files[x] == NULL)
         {
             break;
         }
@@ -36,15 +40,15 @@ int open(const char *fnm, int mode, ...)
     }
     if (mode == O_RDONLY)
     {
-        modestr = "rb";
+        modestr = "r";
     }
     else if (mode == O_WRONLY)
     {
-        modestr = "wb";
+        modestr = "w";
     }
     else if (mode == O_RDWR)
     {
-        modestr = "r+b";
+        modestr = "r+";
     }
     files[x] = fopen(fnm, modestr);
     if (files[x] == NULL)
@@ -58,7 +62,14 @@ int read(int fno, void *buf, size_t bytes)
 {
     size_t rb;
 
-    rb = fread(buf, 1, bytes, filesÝfno¨);
+    if (fno < 3)
+    {
+        rb = fread(buf, 1, bytes, stdin);
+    }
+    else
+    {
+        rb = fread(buf, 1, bytes, files[fno]);
+    }
     return ((int)rb);
 }
 
@@ -66,14 +77,28 @@ int write(int fno, const void *buf, size_t bytes)
 {
     size_t wb;
 
-    wb = fwrite(buf, 1, bytes, filesÝfno¨);
+    if (fno == 1)
+    {
+        fwrite(buf, 1, bytes, stdout);
+    }
+    else if (fno == 2)
+    {
+        fwrite(buf, 1, bytes, stderr);
+    }
+    else if (fno > 2)
+    {
+        wb = fwrite(buf, 1, bytes, files[fno]);
+    }
     return ((int)wb);
 }
 
 int close(int fno)
 {
-    fclose(files[fno]);
-    files[fno] = NULL;
+    if (fno >= 3)
+    {
+        fclose(files[fno]);
+        files[fno] = NULL;
+    }
     return (0);
 }
 
@@ -94,6 +119,7 @@ void unlink(char *f)
 
 int stat(char *f, struct stat *buf)
 {
+    memset(buf, '\0', sizeof *buf);
     return (0);
 }
 
@@ -109,5 +135,21 @@ int access(char *f, int n)
 
 int fstat(int fh, struct stat *buf)
 {
+    memset(buf, '\0', sizeof *buf);
     return (0);
+}
+
+int pwait(int a, int *b, int c)
+{
+    return (0);
+}
+
+int putenv(char *x)
+{
+    return (0);
+}
+
+char *mktemp(char *s)
+{
+    return (tmpnam(s));
 }
