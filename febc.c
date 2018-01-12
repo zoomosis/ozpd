@@ -110,7 +110,7 @@ int febc(int ebc)
     case 0xa9 : return('z');
     case 0xc0 : return('{');
     case 0x4f : return('|');
-    case 0x9b : return('}');
+    case 0xd0 : return('}');
     case 0xa1 : return('~');
     default   : return(0);
   }
