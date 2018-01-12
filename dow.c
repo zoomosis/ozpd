@@ -1,13 +1,14 @@
 /* dow - compute day of week given year (e.g. 1993), month and
-   day.  It returns 0..6 for Monday..Sunday.  It has been tested
-   over the range 1.1.1 to 32767.1.1.  It should work from 1.1.1
-   to INT_MAX.1.1.  Negative years will not cause a problem, they
+   day.  It returns 0..6 for Sunday..Saturday, to be compatible
+   with the C standard library.  It has been tested over the range 
+   0001-01-01 to 32767-01-01.  It should work from 0001-01-01
+   to INT_MAX-01-01.  Negative years will not cause a problem, they
    just produce results which assume their was a year 0. */
 
-/* Written by Paul Edwards, 1993.1.28 */
+/* Written by Paul Edwards, 1993-01-28 */
 /* Released to the Public Domain */
-/* You may sell this, use it in commercial programs, claim it as
-   your own, etc, with no legal concern. */
+/* You may sell this, use it in commercial programs, etc, with no
+   legal concern. */
 
 /* The rules for a leap year are that if the year is divisible by
    4 then it is a leap year, unless it is divisible by 100, then
@@ -85,12 +86,12 @@ int dow(int yr, int mo, int da)
 
   addon += da;      /* the day of week advances for each day */
 
-  /* Now as we all know, 2000.1.1 is a Saturday.  Using this
+  /* Now as we all know, 2000-01-01 is a Saturday.  Using this
   as our reference point, and the knowledge that we want to
-  return 0..6 for Monday..Sunday, we find out that we need to
-  compensate by adding 5. */
+  return 0..6 for Sunday..Saturday, we find out that we need to
+  compensate by adding 6. */
 
-  addon += 5;
+  addon += 6;
 
   return (addon%7);  /* the remainder after dividing by 7
                         gives the day of week */
