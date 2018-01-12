@@ -1,6 +1,6 @@
-/* dow - written by Paul Edwards, 1993.1.31 */
+/* dow - written by Paul Edwards, 1993-01-31 */
 /* Released to the Public Domain */
-/* This routine will work over the range 1.1.1 to 32767.12.31.
+/* This routine will work over the range 0001-01-01 to 32767-12-31.
    It assumes the current calendar system has always been in
    place in that time.  If you pass 0 or negative years, then
    it produces results on the assumption that there is a year
