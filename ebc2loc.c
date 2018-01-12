@@ -24,6 +24,7 @@ int main(int argc, char **argv)
     int c;
     int x = 0;
     int lrecl = 80;
+    long count = 0;
     
     if (argc <= 2)
     {
@@ -47,9 +48,11 @@ int main(int argc, char **argv)
         c = febc(c);
         if (c == 0)
         {
-            printf("converting unknown character x'%2X' to space\n", origc);
+            printf("converting unknown character x'%02X' at offset %ld"
+                   " to space\n", origc, count);
             c = ' ';
         }
+        count++;
         fputc(c, fq);
         if (x == lrecl)
         {
