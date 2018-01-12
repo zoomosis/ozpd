@@ -31,6 +31,7 @@
   getopts.c     Paul Edwards    Parse command line arguments
   getopts.h     Paul Edwards    Header file for getopts.c
   hexdump.c     Paul Edwards    Do a hex dump of a file
+  isbn.c        Paul Markham    Validate an ISBN number
   l2c.c         Nhan Tran       Count lines of code       
   lzhuf.c       Yoshi           Compression used by lharc
   m2x.c         Paul Edwards    Convert buffer to hex
@@ -73,3 +74,4 @@
   zap.c         Paul Edwards    Zap a file at a particular offset
   zcalc.c       Sreenath Chary  A brilliant calculator
   zpedump.c     Paul Edwards    Do a hex dump of a file
+  zshdup.c      Paul Edwards    Show duplicated lines in a file
