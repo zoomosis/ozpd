@@ -74,7 +74,7 @@
   #include <sys/types.h>
   #include <sys/stat.h>
   #include "patmat.h"
-  static int (*gfunc)(char *fnm, void *ucb);
+  static int (*gfunc)(const char *fnm, void *ucb);
   static char *gfile;
   static void *gcb;
   static int   grec;
@@ -103,7 +103,7 @@
 #endif
 
 int trav(char *filename, void *tcb,
-    int (*ufunc)(char *fnm, void *ucb), void *cb)
+    int (*ufunc)(const char *fnm, void *ucb), void *cb)
 {
 #ifdef MVS
   FILE *pds;
@@ -265,7 +265,7 @@ int trav(char *filename, void *tcb,
   if (done == 18) DosFindClose(handle);
   return (1);
 #elif defined(UNIX)
-  int utrav(char *fn, struct stat *mystat, int myint);
+  int utrav(const char *fn, const struct stat *mystat, int myint);
   char *pos;
 
   gcb = cb;
@@ -368,10 +368,10 @@ int trav(char *filename, void *tcb,
 }
 
 #ifdef UNIX
-int utrav(char *fn, struct stat *mystat, int myint)
+int utrav(const char *fn, const struct stat *mystat, int myint)
 {
-  char *pos;
-  char *actfn;
+  const char *pos;
+  const char *actfn;
 
   pos = strrchr(fn, '/');
   if (pos == NULL) pos = fn;
