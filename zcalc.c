@@ -563,6 +563,7 @@ static double evaluate(char *c, int delim)
                *****************************************************/
                { if (isdigit(*c) || (*c == '.'))
                   { vars[temp] = strtod(c,&c);
+                    if (*c == '.') c++; /* mod PE 1995-11-06 */
                     catchr(outstr,&temp);
                     temp++ ;
                     c--    ;
