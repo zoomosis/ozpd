@@ -3,13 +3,20 @@
   read.me                       Description of OZPD
   ozpdndx.txt                   OZPD index - this file
   arctype.c     Paul Markham    Display type of archive
+  bounce.moo    Rowan Crowe     Bouncing ball demo
+  btree.c       David Galbraith Generic btree routines
+  btree.h       David Galbraith Header file for btree.c  
   calendar.c    Paul Edwards    Display a calendar
   chngstr.c     Paul Edwards    Change one string to another in a buffer
   chngstr.h     Paul Edwards    Header file for chngstr.c
   comctl.c      Paul Edwards    Demo of accessing COM ports under OS/2
   crlffix.c     Paul Edwards    Fix <CR><LF> and <LF>
+  ctlparse.c    Andrew Clarke   Parse a configuration file
+  ctlparse.h    Andrew Clarke   Header file for ctlparse.c
   d6502.c       Paul Edwards    6502 disassembler
   delzero.c     Paul Edwards    Delete zero-length files
+  dlist.c       Andrew Clarke   Double-linked list routines
+  dlist.h       Andrew Clarke   Header file for dlist.c
   dllist.c      Paul Markham    Generic double-linked list routines
   dllist.h      Paul Markham    Header file for dlist.c
   dow.h         Paul Edwards    Calculate day-of-week
@@ -25,6 +32,7 @@
   exec.c        Paul Markham    Set the priority of current OS/2 task
   exists.c      Paul Edwards    Test for file existence
   exists.h      Paul Edwards    Header file for exists.c
+  filter.c      Andrew Clarke   Soften a hard-formatted text file
   freqlog.c     Paul Edwards    Scour binkley.log for FREQs
   gcd.c         Paul Edwards    Calculate greatest common divisor
   genpmsg.c     Paul Edwards    Generate a Fidonet packet with message
@@ -33,6 +41,14 @@
   hexdump.c     Paul Edwards    Do a hex dump of a file
   isbn.c        Paul Markham    Validate an ISBN number
   l2c.c         Nhan Tran       Count lines of code       
+  logdbr.c      Andrew Clarke   Status logging routines
+  logdbr.h      Andrew Clarke   Status logging routines
+  logfrodo.c    Andrew Clarke   Status logging routines
+  logfrodo.h    Andrew Clarke   Status logging routines
+  logopus.c     Andrew Clarke   Status logging routines
+  logopus.h     Andrew Clarke   Status logging routines
+  logstat.c     Andrew Clarke   Status logging routines
+  logstat.h     Andrew Clarke   Status logging routines  
   lzhuf.c       Yoshi           Compression used by lharc
   m2x.c         Paul Edwards    Convert buffer to hex
   m2x.h         Paul Edwards    Header file for m2x.c
@@ -42,7 +58,10 @@
   netpay.c      Paul Edwards    Calculate Australian income tax
   patmat.c      Sreenath Chary  Wildcard matching routine
   patmat.h      Sreenath Chary  Header file for patmat.c
+  pqueue.c      David Galbraith Generic priority queue
+  pqueue.h      David Galbraith Header file for pqueue.h
   procfcmd.c    Paul Edwards    Execute commands on wildcarded files
+  prtbrk.c      Paul Edwards    Put breakpoints in printer output
   qacc.c        Paul Edwards    Routines to access a file quickly
   qacc.h        Paul Edwards    Header file for qacc.c
   queue.c       Paul Markham    A generic "queue"
@@ -65,6 +84,8 @@
   sqhash.asm    Rowan Crowe     Low-level squish utility
   stack.c       Paul Markham    A generic "stack"
   stack.h       Paul Markham    Header file for stack.c
+  stack2.c      Andrew Clarke   A generic "stack"
+  stack2.h      Andrew Clarke   Header file for stack2.c
   trav.c        Paul Edwards    Traverse a directory (heaps of OS's)
   trav.h        Paul Edwards    Header file for trav.c
   unused.h      Paul Edwards    Macro to suppress compiler warning
@@ -73,5 +94,6 @@
   xysort.c      Xie Yi Zhong    Sort from stdin to limit of memory
   zap.c         Paul Edwards    Zap a file at a particular offset
   zcalc.c       Sreenath Chary  A brilliant calculator
+  zloop.c       Paul Edwards    An infinite loop program
   zpedump.c     Paul Edwards    Do a hex dump of a file
   zshdup.c      Paul Edwards    Show duplicated lines in a file
