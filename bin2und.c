@@ -23,7 +23,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static char buf›33000®;
+static char buf[33000];
 static short len;
 static FILE *fp;
 static FILE *fq;
